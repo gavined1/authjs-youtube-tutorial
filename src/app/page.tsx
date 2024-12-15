@@ -115,7 +115,7 @@ const Home: React.FC = () => {
                 {plan.popular && (
                   <>
                     <div className="absolute -inset-[1px] bg-gradient-to-r from-blue-500/25 to-purple-500/25 rounded-2xl blur-xl" />
-                    <div className="absolute -top-3 left-1/2 -translate-x-1/2 px-4 py-1 bg-white/10 backdrop-blur-md rounded-full text-sm font-medium text-white/80 border border-white/20">
+                    <div className="absolute right-0 -translate-x-1/2 px-4 py-1 bg-white/10 backdrop-blur-md rounded-full text-sm font-medium text-white/80 border border-white/20">
                       Most Popular
                     </div>
                   </>
