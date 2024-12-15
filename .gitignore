@@ -40,3 +40,4 @@ certificates
 /database/pgadmin_data
 
 .DS_Store
+.env
