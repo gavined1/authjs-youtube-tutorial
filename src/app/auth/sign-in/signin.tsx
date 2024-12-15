@@ -31,8 +31,8 @@ export const SignInPage: React.FC = () => {
           transition={{ duration: 0.5 }}
         >
           <div className="signin-header">
-            <h2>Welcome to AI Tools</h2>
-            <p>Sign in to access your AI tools and credits</p>
+            <h2>Welcome to Gavin's</h2>
+            <p>Sign in to access your AI tools</p>
           </div>
 
           <div className="signin-methods">
