@@ -6,10 +6,12 @@ import { useSession } from "next-auth/react";
 import { useEffect, useState } from "react";
 import { FiVideo, FiImage, FiZap, FiMenu, FiLogOut, FiUser, FiPlus, FiCreditCard, FiTrendingUp } from "react-icons/fi";
 import { Menu, Transition } from "@headlessui/react";
+import { useRouter } from "next/navigation";
 
 export const DashboardPage: React.FC = () => {
   const [username, setUsername] = useState("");
   const { data: session, update } = useSession();
+  const router = useRouter();
 
   useEffect(() => {
     const userInfo = async () => {
@@ -117,7 +119,10 @@ export const DashboardPage: React.FC = () => {
                   <p className="text-sm text-slate-400">Enhance and restore face images</p>
                 </div>
               </div>
-              <button className="w-full py-2 rounded-lg bg-gradient-to-r from-blue-500 to-purple-500 text-sm text-white font-medium hover:opacity-90 transition-opacity">
+              <button 
+                onClick={() => router.push('/tools/codeformer')}
+                className="w-full py-2 rounded-lg bg-gradient-to-r from-blue-500 to-purple-500 text-sm text-white font-medium hover:opacity-90 transition-opacity"
+              >
                 Enhance Image
               </button>
             </div>
