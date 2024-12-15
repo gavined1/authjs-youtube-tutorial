@@ -4,13 +4,14 @@ import { FcGoogle } from "react-icons/fc";
 import { useTransition, useState } from "react";
 import { handleGoogleSignIn } from "@/src/lib/auth/googleSignInServerAction";
 import { handleEmailSignIn } from "@/src/lib/auth/emailSignInServerAction";
+import { motion } from "framer-motion";
 
 export const SignInPage: React.FC = () => {
   const [isPending, startTransition] = useTransition();
-  const [formData, setFormData] = useState({ email: "" as string });
+  const [formData, setFormData] = useState({ email: "" });
 
   const handleSubmit = (event: React.FormEvent) => {
-    event.preventDefault(); // Prevents the form from submitting and reloading the page, allowing us to handle the submission in TypeScript.
+    event.preventDefault();
     try {
       startTransition(async () => {
         await handleEmailSignIn(formData.email);
@@ -22,39 +23,60 @@ export const SignInPage: React.FC = () => {
 
   return (
     <div className="signin-page">
-      <div className="signin-card">
-        <h2>Sign In</h2>
-        <div className="form-container">
-          <form className="email-signin-form" onSubmit={handleSubmit}>
-            <input
-              className="form-input"
-              type="email"
-              maxLength={320}
-              placeholder="Email Address"
-              onChange={(event: React.ChangeEvent<HTMLInputElement>) =>
-                setFormData({ email: event.target.value })
-              }
+      <div className="signin-container">
+        <motion.div 
+          className="signin-card"
+          initial={{ opacity: 0, y: 20 }}
+          animate={{ opacity: 1, y: 0 }}
+          transition={{ duration: 0.5 }}
+        >
+          <div className="signin-header">
+            <h2>Welcome to AI Tools</h2>
+            <p>Sign in to access your AI tools and credits</p>
+          </div>
+
+          <div className="signin-methods">
+            <button 
+              className="google-signin"
+              onClick={() => handleGoogleSignIn()}
               disabled={isPending}
-              required
-            />
-            <button className="submit-button" type="submit">
-              Sign in with email
-            </button>
-          </form>
-
-          <div className="divider">
-            <div className="line"></div>
-            <span className="or">or</span>
-            <div className="line"></div>
-          </div>
-
-          <div className="social-logins">
-            <button className="google" onClick={() => handleGoogleSignIn()}>
+            >
               <FcGoogle className="google-icon" />
-              Sign in with Google
+              <span>Continue with Google</span>
             </button>
+
+            <div className="divider">
+              <span>or continue with email</span>
+            </div>
+
+            <form className="email-signin-form" onSubmit={handleSubmit}>
+              <div className="input-group">
+                <input
+                  type="email"
+                  maxLength={320}
+                  placeholder="Enter your email"
+                  value={formData.email}
+                  onChange={(e) => setFormData({ email: e.target.value })}
+                  disabled={isPending}
+                  required
+                />
+                <motion.button
+                  className="submit-button"
+                  type="submit"
+                  disabled={isPending}
+                  whileHover={{ scale: 1.02 }}
+                  whileTap={{ scale: 0.98 }}
+                >
+                  {isPending ? (
+                    <span className="loading">Signing in...</span>
+                  ) : (
+                    <span>Continue with Email</span>
+                  )}
+                </motion.button>
+              </div>
+            </form>
           </div>
-        </div>
+        </motion.div>
       </div>
     </div>
   );
