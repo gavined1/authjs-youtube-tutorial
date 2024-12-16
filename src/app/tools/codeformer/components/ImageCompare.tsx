@@ -8,14 +8,14 @@ interface ImageCompareProps {
   aspectRatio?: number
 }
 
-export default function ImageCompare({ original, enhanced, aspectRatio = 16/9 }: ImageCompareProps) {
+export default function ImageCompare({ original, enhanced, aspectRatio = 9/16 }: ImageCompareProps) {
   const [isResizing, setIsResizing] = useState(false)
   const [position, setPosition] = useState(50)
   const [containerHeight, setContainerHeight] = useState(0)
 
   const updateContainerHeight = useCallback((containerWidth: number) => {
     const height = containerWidth / aspectRatio;
-    const maxHeight = window.innerHeight * 0.7; // 70vh
+    const maxHeight = window.innerHeight * 1; // 70vh
     setContainerHeight(Math.min(height, maxHeight));
   }, [aspectRatio])
 
@@ -75,13 +75,19 @@ export default function ImageCompare({ original, enhanced, aspectRatio = 16/9 }:
     }
   }, [isResizing, handleMove, handleMouseUp])
 
+  const isLoggedIn = true; // Replace this with actual authentication check
+
+  if (!isLoggedIn) {
+    return <div>Please log in to access this feature.</div>;
+  }
+
   return (
     <div 
       id="comparison-slider"
       className="relative w-full select-none"
       style={{ 
         height: `${containerHeight}px`,
-        maxHeight: '70vh'
+        maxHeight: '100vh'
       }}
     >
       {/* Enhanced Image (Background) */}
